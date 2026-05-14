@@ -30,16 +30,20 @@ def get_analytics(user_id):
             }},
             {"$lookup": {
                 "from": "categories",
-                "localField": "_id",
-                "foreignField": "_id",
+                "let": {"category_id": "$_id"},
+                "pipeline": [
+                    {"$match": {
+                        "$expr": {"$eq": [{"$toString": "$_id"}, "$$category_id"]}
+                    }},
+                    {"$project": {"name": 1, "_id": 0}}
+                ],
                 "as": "category_info"
             }},
             {"$addFields": {
                 "category_name": {
-                    "$cond": [
-                        {"$eq": [{"$type": "$_id"}, "string"]},
-                        "$_id",
-                        {"$arrayElemAt": ["$category_info.name", 0]}
+                    "$ifNull": [
+                        {"$arrayElemAt": ["$category_info.name", 0]},
+                        "Uncategorized"
                     ]
                 }
             }},
@@ -64,16 +68,20 @@ def get_analytics(user_id):
                     {"$limit": 5},
                     {"$lookup": {
                         "from": "categories",
-                        "localField": "_id",
-                        "foreignField": "_id",
+                        "let": {"category_id": "$_id"},
+                        "pipeline": [
+                            {"$match": {
+                                "$expr": {"$eq": [{"$toString": "$_id"}, "$$category_id"]}
+                            }},
+                            {"$project": {"name": 1, "_id": 0}}
+                        ],
                         "as": "category_info"
                     }},
                     {"$addFields": {
                         "category_name": {
-                            "$cond": [
-                                {"$eq": [{"$type": "$_id"}, "string"]},
-                                "$_id",
-                                {"$arrayElemAt": ["$category_info.name", 0]}
+                            "$ifNull": [
+                                {"$arrayElemAt": ["$category_info.name", 0]},
+                                "Uncategorized"
                             ]
                         }
                     }},
