@@ -7,9 +7,10 @@ to prevent circular imports and provide a single source of truth for
 database connections across the application.
 """
 
+import os
 from pymongo import MongoClient
 
-MONGO_URI = "mongodb://localhost:27017"
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
 
 mongo_client = MongoClient(
     MONGO_URI,
