@@ -10,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar">
         <button id="sidebarToggle" class="sidebar-toggle">
             <span class="material-symbols-outlined">menu</span>
@@ -19,7 +18,6 @@
         <span id="user" style="font-size: 0.9em; color: #999;">User</span>
     </nav>
 
-    <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
         <h2 style="text-align: center; margin-bottom: 16px;">Menu</h2>
         
@@ -44,14 +42,12 @@
         </button>
     </div>
 
-    <!-- Main Content -->
     <div class="analytics-container">
         <div class="welcome-section">
             <h2>Welcome, <span id="username">User</span>!</h2>
             <p>Organizational Financial Overview & Insights</p>
         </div>
 
-        <!-- Statistics Cards -->
         <div class="stats-grid">
             <div class="stat-card" style="border-left: 4px solid #009688;">
                 <div class="stat-icon"><span class="material-symbols-outlined">account_balance</span></div>
@@ -86,22 +82,18 @@
             </div>
         </div>
 
-        <!-- Charts Section -->
         <div class="charts-grid">
-            <!-- Pie Chart - Category Distribution -->
             <div class="chart-card">
                 <h3>Disbursement Breakdown</h3>
                 <canvas id="categoryChart"></canvas>
             </div>
 
-            <!-- Bar Chart - Spending Trend -->
             <div class="chart-card">
                 <h3>Monthly Cash Flow Analysis</h3>
                 <canvas id="trendChart"></canvas>
             </div>
         </div>
 
-        <!-- Top Categories Table -->
         <div class="table-card">
             <h3>Highest Disbursement Categories</h3>
             <table class="analytics-table">
@@ -121,7 +113,6 @@
             </table>
         </div>
 
-        <!-- Seed Data Button -->
         <div class="action-section">
             <button onclick="seedData()" class="seed-btn" title="Load sample data for testing">
                 Load Sample Data

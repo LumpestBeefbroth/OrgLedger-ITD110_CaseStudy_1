@@ -169,7 +169,6 @@ async function deleteSelectedCategory() {
       selectedCategories = selectedCategories.filter(id => id !== categoryId);
     } else {
       failedCount++;
-      console.error(`Failed to delete category ${categoryId}: ${data.error}`);
     }
   }
   
@@ -241,7 +240,6 @@ async function loadExpenses() {
     filtered.sort((a, b) => new Date(a.modified_at || a.date || 0) - new Date(b.modified_at || b.date || 0));
   }
 
-  // Calculate wallet totals
   let totalIncome = 0;
   let totalExpense = 0;
   expensesData.forEach(exp => {
@@ -252,8 +250,6 @@ async function loadExpenses() {
     }
   });
   const currentBalance = totalIncome - totalExpense;
-  
-  // Update wallet display
   document.getElementById("walletBalance").textContent = '₱' + currentBalance.toFixed(2);
   document.getElementById("walletIncome").textContent = '₱' + totalIncome.toFixed(2);
   document.getElementById("walletExpense").textContent = '₱' + totalExpense.toFixed(2);
@@ -394,7 +390,6 @@ async function deleteExpense(expenseId) {
 async function viewAllExpenses() {
   const res = await fetch(`${api}/expenses/${localStorage.getItem("user_id")}`);
   if (!res.ok) {
-    console.error("Failed to load all expenses");
     return;
   }
 

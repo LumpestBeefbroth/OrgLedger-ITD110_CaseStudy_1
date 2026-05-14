@@ -2,19 +2,7 @@ let categoryChart = null;
 let trendChart = null;
 let analyticsData = null;
 
-document.addEventListener("DOMContentLoaded", function() {
-  const navLinks = document.querySelectorAll(".nav-link");
-  navLinks.forEach(link => {
-    link.addEventListener("click", function(e) {
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
-      if (sidebar && overlay) {
-        sidebar.classList.remove("active");
-        overlay.classList.remove("active");
-      }
-    });
-  });
-});
+
 
 if (document.getElementById("username")) {
   const user = localStorage.getItem("username");
@@ -30,7 +18,6 @@ async function loadAnalytics() {
   try {
     const res = await fetch(`${api}/analytics/${userId}`);
     if (!res.ok) {
-      console.error("Failed to load analytics");
       return;
     }
     
@@ -40,7 +27,6 @@ async function loadAnalytics() {
     displayTrendChart();
     displayCategoryTable();
   } catch (error) {
-    console.error("Error loading analytics:", error);
     alert("Failed to load analytics data");
   }
 }
@@ -102,8 +88,6 @@ function displayTrendChart() {
   const trend = analyticsData.expense_trend;
 
   const labels = trend.map(t => t.month || "Unknown");
-  
-  // Extract Income and Expense arrays, defaulting to 0 if missing
   const incomeData = trend.map(t => t.data.Income || 0);
   const expenseData = trend.map(t => t.data.Expense || 0);
 
@@ -166,8 +150,6 @@ function displayCategoryTable() {
 
   const tbody = document.getElementById("categoriesTableBody");
   const categories = analyticsData.category_totals;
-  
-  // Calculate total for percentage calculation
   const totalSpent = categories.reduce((sum, cat) => sum + cat.total, 0);
 
   tbody.innerHTML = "";
@@ -210,13 +192,11 @@ async function seedData() {
     const data = await res.json();
     if (res.ok) {
       alert(`✅ Sample data loaded!\n${data.message}\nCategories: ${data.categories_created}, Expenses: ${data.expenses_created}`);
-      // Reload analytics
       loadAnalytics();
     } else {
       alert(`⚠️ ${data.error || "Failed to load sample data"}`);
     }
   } catch (error) {
-    console.error("Error seeding data:", error);
     alert("Error loading sample data");
   }
 }
@@ -224,7 +204,6 @@ async function seedData() {
 const darkModeToggle = document.getElementById("darkModeToggle");
 if (darkModeToggle) {
   darkModeToggle.addEventListener("change", () => {
-    // Redraw charts with dark mode colors
     setTimeout(() => {
       if (categoryChart) categoryChart.resize();
       if (trendChart) trendChart.resize();

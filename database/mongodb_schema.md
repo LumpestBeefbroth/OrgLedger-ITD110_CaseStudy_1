@@ -1,7 +1,6 @@
 
 
 #### 1. **users** Collection
-Stores user account information.
 
 ```javascript
 {
@@ -18,7 +17,6 @@ Stores user account information.
 ---
 
 #### 2. **categories** Collection
-Stores expense categories for each user.
 
 ```javascript
 {
@@ -30,10 +28,6 @@ Stores expense categories for each user.
 
 **Indexes:**
 - `user_id` + `name` (unique compound index)
-
-**Relationship:**
-- Links to `users` collection via `user_id`
-- Represents the SQL relationship: user has many categories
 
 ---
 
@@ -52,11 +46,7 @@ Stores individual expense entries.
 ```
 
 **Indexes:**
-- `user_id` (for filtering by user)
-
-**Relationships:**
-- Links to `users` collection via `user_id`
-- Links to `categories` collection via `category_id`
+- `user_id`
 
 ---
 
@@ -77,7 +67,7 @@ Stores backup versions of expenses for restore functionality.
 ```
 
 **Indexes:**
-- `expense_id` (for querying backups by expense)
+- `expense_id`
 
 ---
 
@@ -91,13 +81,6 @@ Stores backup versions of expenses for restore functionality.
 | **Joins** | SQL JOIN | `$lookup` aggregation pipeline |
 | **Transactions** | ACID guaranteed | ACID on document level, multi-doc transactions available |
 | **Scaling** | Vertical | Horizontal (sharding support) |
-
-## Migration Notes
-
-1. **Connection String:** `mongodb://localhost:27017`
-2. **Database Name:** `expense_tracker`
-3. **Connection Pool Settings:**
-   - maxPoolSize: 50
    - minPoolSize: 10
    - maxIdleTimeMS: 300000
    - connectTimeoutMS: 10000
