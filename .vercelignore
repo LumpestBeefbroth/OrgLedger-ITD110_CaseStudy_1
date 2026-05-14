@@ -1,0 +1,9 @@
+.venv
+.git
+.gitignore
+.vscode
+database/
+VERCEL_DEPLOYMENT.md
+*.pyc
+__pycache__
+.DS_Store

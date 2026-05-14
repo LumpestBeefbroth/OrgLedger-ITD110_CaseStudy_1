@@ -1,11 +1,13 @@
 {
+  "buildCommand": "pip install -r requirements.txt",
   "builds": [
     {
       "src": "back-end/app.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.11" }
     },
     {
-      "src": "front-end/**",
+      "src": "front-end/**/*.html",
       "use": "@vercel/static"
     },
     {
@@ -27,7 +29,15 @@
       "dest": "/javascript/$1"
     },
     {
-      "src": "/(register|login|update-username|categories(?:/.*)?|expenses(?:/.*)?|export-ledger(?:/.*)?|analytics(?:/.*)?|seed-data(?:/.*)?|backup-expenses|generate-backup-bat)",
+      "src": "/.*\\.html$",
+      "dest": "/front-end/$0"
+    },
+    {
+      "src": "^/api/.*",
+      "dest": "/back-end/app.py"
+    },
+    {
+      "src": "^/(register|login|update-username|categories|expenses|export-ledger|analytics|seed-data|backup-expenses|generate-backup-bat|health).*",
       "dest": "/back-end/app.py"
     },
     {
@@ -35,15 +45,8 @@
       "dest": "/front-end/index.html"
     },
     {
-      "src": "/([a-z-]+)\\.html$",
-      "dest": "/front-end/$1.html"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/front-end/$1"
+      "src": "/.*",
+      "dest": "/front-end/index.html"
     }
   ]
 }
