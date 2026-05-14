@@ -8,10 +8,10 @@ and registers all blueprints from the routes/ folder.
 
 from flask import Flask, jsonify
 from flask_cors import CORS
-from routes.auth_routes import auth_bp
-from routes.category_routes import category_bp
-from routes.ledger_routes import ledger_bp
-from routes.analytics_routes import analytics_bp
+from .routes.auth_routes import auth_bp
+from .routes.category_routes import category_bp
+from .routes.ledger_routes import ledger_bp
+from .routes.analytics_routes import analytics_bp
 
 app = Flask(__name__)
 CORS(app)
@@ -26,7 +26,7 @@ app.register_blueprint(analytics_bp)
 def health():
     """Health check endpoint"""
     try:
-        from db import users_collection
+        from .db import users_collection
         if users_collection is not None:
             return jsonify({"status": "ok", "database": "connected"}), 200
         else:

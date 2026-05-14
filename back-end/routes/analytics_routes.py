@@ -6,13 +6,10 @@ Handles complex analytics and reporting with MongoDB aggregation pipelines.
 Includes Virtual Wallet calculation, spending analysis, and cash flow trends.
 """
 
-import sys
-import os
 from flask import Blueprint, request, jsonify
 from bson import ObjectId
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from db import expenses_collection, categories_collection
+from ..db import expenses_collection, categories_collection
 
 analytics_bp = Blueprint('analytics', __name__)
 

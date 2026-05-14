@@ -5,14 +5,11 @@ Location: back-end/routes/auth_routes.py
 Handles user registration, login, and username update endpoints.
 """
 
-import sys
-import os
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson import ObjectId
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from db import users_collection
+from ..db import users_collection
 
 auth_bp = Blueprint('auth', __name__)
 

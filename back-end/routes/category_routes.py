@@ -5,13 +5,10 @@ Location: back-end/routes/category_routes.py
 Handles all category CRUD operations (GET, POST, PUT, DELETE).
 """
 
-import sys
-import os
 from flask import Blueprint, request, jsonify
 from bson import ObjectId
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from db import categories_collection, expenses_collection
+from ..db import categories_collection, expenses_collection
 
 category_bp = Blueprint('categories', __name__)
 
