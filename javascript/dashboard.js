@@ -163,13 +163,13 @@ async function deleteSelectedCategory() {
   
   for (const categoryId of categoryIds) {
     const res = await fetch(`${api}/categories/${categoryId}`, { method: "DELETE" });
-    const data = await res.json();
-    if (res.ok) {
-      deletedCount++;
-      selectedCategories = selectedCategories.filter(id => id !== categoryId);
-    } else {
+    if (!res.ok) {
       failedCount++;
+      continue;
     }
+    const data = await res.json();
+    deletedCount++;
+    selectedCategories = selectedCategories.filter(id => id !== categoryId);
   }
   
   if (failedCount === 0) {
@@ -326,8 +326,8 @@ async function saveAllModifications() {
       body: JSON.stringify(updatedExpense)
     });
 
-    const data = await res.json();
     if (!res.ok) {
+      const data = await res.json();
       alert(`Failed to update expense ${updatedExpense.id}: ${data.error}`);
       return;
     }
@@ -343,13 +343,18 @@ function cancelModifyMode() {
 }
 
 async function revertExpense(expenseId) {
-  const res = await fetch(`${api}/expenses/${expenseId}/restore`, { method: "PUT" });
-  const data = await res.json();
-  if (res.ok) {
-    alert(data.message || "Expense reverted to last backup!");
-    loadExpenses();
-  } else {
-    alert(data.error || "Failed to revert expense.");
+  try {
+    const res = await fetch(`${api}/expenses/${expenseId}/restore`, { method: "PUT" });
+    const data = await res.json();
+    if (res.ok) {
+      alert(data.message || "Expense reverted to last backup!");
+      loadExpenses();
+    } else {
+      alert(data.error || "Failed to revert expense.");
+    }
+  } catch (error) {
+    console.error("Error reverting expense:", error);
+    alert("Failed to revert expense.");
   }
 }
 
@@ -375,16 +380,21 @@ async function deleteSelectedExpenses() {
 async function deleteExpense(expenseId) {
   if (!confirm("Are you sure you want to delete this expense?")) return;
 
-  const res = await fetch(`${api}/expenses/${expenseId}`, { method: "DELETE" });
-  const data = await res.json();
-  
-  if (!res.ok) {
-    alert(`Failed to delete expense: ${data.error}`);
-    return;
+  try {
+    const res = await fetch(`${api}/expenses/${expenseId}`, { method: "DELETE" });
+    
+    if (!res.ok) {
+      const data = await res.json();
+      alert(`Failed to delete expense: ${data.error}`);
+      return;
+    }
+    
+    alert("Expense deleted successfully!");
+    loadExpenses();
+  } catch (error) {
+    console.error("Error deleting expense:", error);
+    alert("Failed to delete expense.");
   }
-
-  alert("Expense deleted successfully!");
-  loadExpenses();
 }
 
 async function viewAllExpenses() {

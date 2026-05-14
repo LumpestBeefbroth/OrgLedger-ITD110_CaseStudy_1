@@ -19,24 +19,24 @@
   ],
   "routes": [
     {
-      "src": "/$",
-      "dest": "/front-end/index.html"
-    },
-    {
-      "src": "/([a-z-]+)\\.html$",
-      "dest": "/front-end/$1.html"
-    },
-    {
-      "src": "/(register|login|update-username|categories(?:/.*)?|expenses(?:/.*)?|export-ledger(?:/.*)?|analytics(?:/.*)?|seed-data(?:/.*)?|backup-expenses|generate-backup-bat)",
-      "dest": "/back-end/app.py"
-    },
-    {
       "src": "/css/(.*)",
       "dest": "/css/$1"
     },
     {
       "src": "/javascript/(.*)",
       "dest": "/javascript/$1"
+    },
+    {
+      "src": "/(register|login|update-username|categories(?:/.*)?|expenses(?:/.*)?|export-ledger(?:/.*)?|analytics(?:/.*)?|seed-data(?:/.*)?|backup-expenses|generate-backup-bat)",
+      "dest": "/back-end/app.py"
+    },
+    {
+      "src": "/$",
+      "dest": "/front-end/index.html"
+    },
+    {
+      "src": "/([a-z-]+)\\.html$",
+      "dest": "/front-end/$1.html"
     },
     {
       "handle": "filesystem"

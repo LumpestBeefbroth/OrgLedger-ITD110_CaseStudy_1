@@ -189,14 +189,17 @@ async function seedData() {
       headers: { "Content-Type": "application/json" }
     });
 
-    const data = await res.json();
-    if (res.ok) {
-      alert(`✅ Sample data loaded!\n${data.message}\nCategories: ${data.categories_created}, Expenses: ${data.expenses_created}`);
-      loadAnalytics();
-    } else {
+    if (!res.ok) {
+      const data = await res.json();
       alert(`⚠️ ${data.error || "Failed to load sample data"}`);
+      return;
     }
+
+    const data = await res.json();
+    alert(`✅ Sample data loaded!\n${data.message}\nCategories: ${data.categories_created}, Expenses: ${data.expenses_created}`);
+    loadAnalytics();
   } catch (error) {
+    console.error("Error loading sample data:", error);
     alert("Error loading sample data");
   }
 }
