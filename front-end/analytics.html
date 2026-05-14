@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics | OrgLedger</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/analytics.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <button id="sidebarToggle" class="sidebar-toggle">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <h1 class="navbar-title">ORGLEDGER SYSTEM</h1>
+        <span id="user" style="font-size: 0.9em; color: #999;">User</span>
+    </nav>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <h2 style="text-align: center; margin-bottom: 16px;">Menu</h2>
+        
+        <a href="dashboard.html" class="nav-link">
+            <span class="material-symbols-outlined">dashboard</span>
+            Dashboard
+        </a>
+        
+        <a href="analytics.html" class="nav-link active">
+            <span class="material-symbols-outlined">analytics</span>
+            Analytics
+        </a>
+        
+        <a href="settings.html" class="nav-link">
+            <span class="material-symbols-outlined">settings</span>
+            Settings
+        </a>
+        
+        <button onclick="logout()" class="nav-link logout-btn">
+            <span class="material-symbols-outlined">logout</span>
+            Logout
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="analytics-container">
+        <div class="welcome-section">
+            <h2>Welcome, <span id="username">User</span>!</h2>
+            <p>Organizational Financial Overview & Insights</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card" style="border-left: 4px solid #009688;">
+                <div class="stat-icon"><span class="material-symbols-outlined">account_balance</span></div>
+                <div class="stat-content">
+                    <div class="stat-label">Net Organization Balance</div>
+                    <div class="stat-value" id="netBalance">₱0.00</div>
+                </div>
+            </div>
+
+            <div class="stat-card" style="border-left: 4px solid #4CAF50;">
+                <div class="stat-icon"><span class="material-symbols-outlined">payments</span></div>
+                <div class="stat-content">
+                    <div class="stat-label">Total Funds Collected</div>
+                    <div class="stat-value" id="totalIncome" style="color: #4CAF50;">₱0.00</div>
+                </div>
+            </div>
+
+            <div class="stat-card" style="border-left: 4px solid #f44336;">
+                <div class="stat-icon"><span class="material-symbols-outlined">receipt_long</span></div>
+                <div class="stat-content">
+                    <div class="stat-label">Total Funds Disbursed</div>
+                    <div class="stat-value" id="totalExpense" style="color: #f44336;">₱0.00</div>
+                </div>
+            </div>
+
+            <div class="stat-card" style="border-left: 4px solid #FFC107;">
+                <div class="stat-icon"><span class="material-symbols-outlined">list_alt</span></div>
+                <div class="stat-content">
+                    <div class="stat-label">Total Transactions Logged</div>
+                    <div class="stat-value" id="totalCount" style="color: #FFC107;">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-grid">
+            <!-- Pie Chart - Category Distribution -->
+            <div class="chart-card">
+                <h3>Disbursement Breakdown</h3>
+                <canvas id="categoryChart"></canvas>
+            </div>
+
+            <!-- Bar Chart - Spending Trend -->
+            <div class="chart-card">
+                <h3>Monthly Cash Flow Analysis</h3>
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Top Categories Table -->
+        <div class="table-card">
+            <h3>Highest Disbursement Categories</h3>
+            <table class="analytics-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Total Amount</th>
+                        <th>Transactions</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody id="categoriesTableBody">
+                    <tr>
+                        <td colspan="4" style="text-align: center; color: #999;">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Seed Data Button -->
+        <div class="action-section">
+            <button onclick="seedData()" class="seed-btn" title="Load sample data for testing">
+                Load Sample Data
+            </button>
+        </div>
+    </div>
+
+    <script src="../javascript/common.js"></script>
+    <script src="../javascript/analytics.js"></script>
+</body>
+</html>

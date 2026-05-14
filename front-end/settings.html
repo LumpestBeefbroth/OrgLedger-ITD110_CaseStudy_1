@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | OrgLedger</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/settings.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <button id="sidebarToggle" class="sidebar-toggle">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+    <h1 class="navbar-title">ORGLEDGER SYSTEM</h1>
+    <span id="user" style="font-size: 0.9em; color: #999;"></span>
+  </nav>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <h2 style="text-align: center; margin-bottom: 16px;">Menu</h2>
+    
+    <a href="dashboard.html" class="nav-link">
+      <span class="material-symbols-outlined">dashboard</span>
+      Dashboard
+    </a>
+    
+    <a href="analytics.html" class="nav-link">
+      <span class="material-symbols-outlined">analytics</span>
+      Analytics
+    </a>
+    
+    <a href="settings.html" class="nav-link active">
+      <span class="material-symbols-outlined">settings</span>
+      Settings
+    </a>
+    
+    <button onclick="logout()" class="nav-link logout-btn">
+      <span class="material-symbols-outlined">logout</span>
+      Logout
+    </button>
+  </div>
+
+  <div class="settings-container">
+    <h2>Settings</h2>
+
+    <section>
+      <h3>Dark Mode</h3>
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider round"></span>
+      </label>
+    </section>
+
+    <section>
+      <h3>Change Username</h3>
+      <form id="changeUsernameForm">
+        <input type="text" id="newUsername" placeholder="New Username" required class="form-input">
+        <button type="submit" class="form-btn">Update Username</button>
+      </form>
+    </section>
+
+    <section>
+      <h3>System Backup</h3>
+      <button onclick="backupAllExpenses()" class="backup-btn">Download JSON Ledger Backup</button>
+    </section>
+  </div>
+
+  <script src="../javascript/common.js"></script>
+  <script src="../javascript/settings.js"></script>
+</body>
+</html>

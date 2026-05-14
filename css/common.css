@@ -1,0 +1,131 @@
+:root {
+  --primary: #009688;
+  --primary-dark: #00695c;
+  --primary-light: #b2dfdb;
+  --primary-lighter: #e0f7fa;
+  --surface: #fafdff;
+  --surface-alt: #e0f2f1;
+  --on-surface: #263238;
+  --sidebar-bg: #ffffffcc;
+  --card-radius: 22px;
+  --shadow: 0 2px 12px 0 rgba(0,150,136,0.08);
+  --border: 1.5px solid #b2dfdb;
+  --transition: 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+body.dark {
+  --primary: #26a69a;
+  --primary-dark: #00897b;
+  --primary-light: #4db6ac;
+  --primary-lighter: #80cbc4;
+  --surface: #263238;
+  --surface-alt: #37474f;
+  --on-surface: #e0f7fa;
+  --sidebar-bg: #263238cc;
+  --shadow: 0 2px 12px 0 rgba(38,166,154,0.12);
+  --border: 1.5px solid #37474f;
+}
+
+body {
+  font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+  margin: 0;
+  background: var(--surface);
+  color: var(--on-surface);
+  transition: background var(--transition), color var(--transition);
+}
+
+body.dark {
+  background: var(--surface);
+  color: var(--on-surface);
+}
+
+.navbar {
+  background: var(--primary);
+  color: white;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 0 var(--card-radius) var(--card-radius);
+  box-shadow: var(--shadow);
+  font-size: 1.1em;
+  position: relative;
+}
+
+body.dark .navbar {
+  background: var(--primary-dark);
+}
+
+.navbar-title {
+  flex: 1;
+  text-align: center;
+  font-size: 2.2em;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+  color: white;
+  user-select: none;
+  text-transform: uppercase;
+  text-shadow: 0 2px 12px rgba(0,179,179,0.12);
+  line-height: 1.2;
+}
+
+#sidebarToggle {
+  background: var(--primary-dark);
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 1em;
+  margin-left: 16px;
+  box-shadow: 0 2px 8px 0 rgba(0,102,102,0.10);
+  transition: background var(--transition), box-shadow var(--transition);
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#sidebarToggle svg {
+  width: 24px;
+  height: 24px;
+}
+
+#sidebarToggle:hover {
+  background: #004c4c;
+  box-shadow: 0 4px 16px 0 rgba(0,76,76,0.12);
+}
+
+.nav-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.nav-buttons button {
+  margin: 0;
+}
+
+body.active-overlay {
+  overflow: hidden;
+}
+
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 500;
+}
+
+.sidebar.active + #overlay {
+  display: block;
+}

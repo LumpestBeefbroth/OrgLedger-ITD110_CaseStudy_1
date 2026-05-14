@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | OrgLedger</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+  <div id="sidebar" class="sidebar">
+    <h2>Welcome, <span id="user"></span></h2>
+    
+    <!-- Navigation Links -->
+    <a href="dashboard.html" class="nav-link active">
+      <span class="material-symbols-outlined">dashboard</span>
+      Dashboard
+    </a>
+    <a href="analytics.html" class="nav-link">
+      <span class="material-symbols-outlined">analytics</span>
+      Analytics
+    </a>
+    <a href="settings.html" class="nav-link">
+      <span class="material-symbols-outlined">settings</span>
+      Settings
+    </a>
+    
+    <button onclick="logout()" class="nav-link logout-btn">
+      <span class="material-symbols-outlined">logout</span>
+      Logout
+    </button>
+
+    <hr style="margin: 16px 0; border: none; height: 1px; background: #e0f2f1;">
+    
+    <h3>Categories</h3>
+    <div class="add-category-container">
+      <input type="text" id="newCategoryName" placeholder="New Category Name" class="sidebar-input">
+      <button onclick="addCategory()" class="sidebar-add-btn">Add</button>
+    </div>
+    <div class="sidebar-search-sort">
+      <input type="text" id="categorySearch" placeholder="Search categories..." class="sidebar-input">
+      <select id="categorySort" class="sidebar-select">
+        <option value="recent">Recent</option>
+        <option value="oldest">Oldest</option>
+        <option value="az">A-Z</option>
+        <option value="recently_modified">Recently Modified</option>
+        <option value="oldest_modified">Oldest Modified</option>
+      </select>
+    </div>
+    <button id="deleteCategoryButton" onclick="deleteSelectedCategory()" class="sidebar-delete-btn">Delete Selected Category</button>
+    <ul id="categoryList" class="sidebar-category-list"></ul>
+  </div>
+
+  <div class="navbar">
+    <button id="sidebarToggle" aria-label="Open sidebar">
+      <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
+        <rect y="9" width="38" height="5" rx="2.5" fill="currentColor"/>
+        <rect y="17" width="38" height="5" rx="2.5" fill="currentColor"/>
+        <rect y="25" width="38" height="5" rx="2.5" fill="currentColor"/>
+      </svg>
+    </button>
+    <div class="navbar-title">ORGLEDGER SYSTEM</div>
+    <div style="width:48px"></div>
+  </div>
+
+  <div class="dashboard">
+    <div class="wallet-dashboard" id="walletDashboard">
+      <div class="wallet-card balance-card">
+        <h4>Current Balance</h4>
+        <h2 id="walletBalance">₱0.00</h2>
+      </div>
+      <div class="wallet-card income-card">
+        <h4>Total Collected</h4>
+        <h3 id="walletIncome">₱0.00</h3>
+      </div>
+      <div class="wallet-card expense-card">
+        <h4>Total Disbursed</h4>
+        <h3 id="walletExpense">₱0.00</h3>
+      </div>
+    </div>
+
+    <form id="expenseForm" class="expense-form horizontal-form">
+      <select id="transactionType" class="form-input" required>
+        <option value="" disabled selected>Select Type</option>
+        <option value="Expense">Expense</option>
+        <option value="Income">Income (Dues)</option>
+      </select>
+      <input type="text" id="description" placeholder="Description" class="form-input">
+      <input type="text" id="orNumber" placeholder="Receipt No. (Opt)" class="form-input">
+      <input type="number" id="amount" placeholder="Amount (₱)" required class="form-input">
+      <input type="date" id="date" required class="form-input" placeholder="Date">
+      <button type="submit" class="form-btn">Add Record</button>
+    </form>
+
+    <div class="search-sort-row">
+      <input type="text" id="expenseSearch" placeholder="Search expenses..." class="search-input">
+      <select id="expenseSort" class="sort-select">
+        <option value="recent">Recent</option>
+        <option value="oldest">Oldest</option>
+        <option value="az">A-Z</option>
+        <option value="recently_modified">Recently Modified</option>
+        <option value="oldest_modified">Oldest Modified</option>
+      </select>
+    </div>
+
+    <div class="table-controls">
+      <button id="modifyTableButton" onclick="toggleModifyMode()">Modify</button>
+      <button id="saveChangesButton" onclick="saveAllModifications()" style="display:none;">Save Changes</button>
+      <button id="deleteSelectedButton" onclick="deleteSelectedExpenses()" style="display:none;">Delete Selected</button>
+      <button id="cancelModifyButton" onclick="cancelModifyMode()" style="display:none;">Cancel</button>
+    </div>
+
+    <table id="expensesTable">
+      <thead id="expensesTableHead">
+        <tr>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Receipt No.</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <script src="../javascript/common.js"></script>
+  <script src="../javascript/dashboard.js"></script>
+</body>
+</html>
