@@ -21,6 +21,11 @@ auth_bp = Blueprint('auth', __name__)
 def register():
     try:
         print("[DEBUG] Register endpoint called")
+        
+        if users_collection is None:
+            print("[ERROR] Database not connected")
+            return jsonify({"error": "Database connection unavailable"}), 503
+        
         data = request.get_json()
         
         if not data or 'username' not in data or 'email' not in data or 'password' not in data:
@@ -54,6 +59,11 @@ def register():
 def login():
     try:
         print("[DEBUG] Login endpoint called")
+        
+        if users_collection is None:
+            print("[ERROR] Database not connected")
+            return jsonify({"error": "Database connection unavailable"}), 503
+        
         data = request.get_json()
         
         if not data or 'username' not in data or 'password' not in data:
@@ -80,6 +90,11 @@ def login():
 def update_username(user_id):
     try:
         print(f"[DEBUG] Update username endpoint called for user_id: {user_id}")
+        
+        if users_collection is None:
+            print("[ERROR] Database not connected")
+            return jsonify({"error": "Database connection unavailable"}), 503
+        
         data = request.get_json()
         
         if not data or 'new_username' not in data:
