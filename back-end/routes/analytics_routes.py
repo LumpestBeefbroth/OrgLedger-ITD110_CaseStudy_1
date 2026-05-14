@@ -25,7 +25,8 @@ def get_analytics(user_id):
             {"$match": {"user_id": user_id}},
             {"$group": {
                 "_id": "$category_id",
-                "amount": {"$sum": "$amount"}
+                "amount": {"$sum": "$amount"},
+                "count": {"$sum": 1}
             }},
             {"$lookup": {
                 "from": "categories",
@@ -42,7 +43,7 @@ def get_analytics(user_id):
                     ]
                 }
             }},
-            {"$project": {"category_name": 1, "amount": 1, "_id": 0}}
+            {"$project": {"category_name": 1, "amount": 1, "count": 1, "_id": 0}}
         ]))
 
         stats_agg = list(expenses_collection.aggregate([
@@ -124,15 +125,38 @@ def get_analytics(user_id):
                 "expense": item["expense"]
             }
 
+        # Count total transactions
+        total_count = sum(item["amount"] for item in category_totals)
+        
+        # Transform category totals to match frontend expectations
+        formatted_categories = []
+        for item in category_totals:
+            formatted_categories.append({
+                "_id": {"category_name": item.get("category_name", "Uncategorized")},
+                "total": item.get("amount", 0),
+                "count": item.get("count", 0)
+            })
+        
+        # Transform cash flow trend to match frontend expectations (expense_trend)
+        expense_trend = []
+        for month, flow_data in sorted(cash_flow_trend.items()):
+            expense_trend.append({
+                "month": month,
+                "data": {
+                    "Income": flow_data.get("income", 0),
+                    "Expense": flow_data.get("expense", 0)
+                }
+            })
+
         response = {
-            "virtual_wallet": {
+            "statistics": {
                 "total_income": total_income,
                 "total_expense": total_expense,
-                "net_balance": net_balance
+                "net_balance": net_balance,
+                "count": int(expenses_collection.count_documents({"user_id": user_id}))
             },
-            "category_totals": category_totals,
-            "cash_flow_trend": cash_flow_trend,
-            "top_categories": stats_agg[0]["top_categories"] if stats_agg else []
+            "category_totals": formatted_categories,
+            "expense_trend": expense_trend
         }
 
         return jsonify(response)
