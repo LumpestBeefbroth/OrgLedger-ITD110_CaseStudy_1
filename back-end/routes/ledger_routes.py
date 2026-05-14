@@ -6,12 +6,15 @@ Handles expense CRUD operations, JSON export, backup generation, and seed data.
 This blueprint manages the core financial transaction ledger.
 """
 
+import sys
+import os
 from flask import Blueprint, request, jsonify, Response
 from flask_cors import cross_origin
 from bson import ObjectId, json_util
 from datetime import datetime
-import os
 import subprocess
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from db import expenses_collection, categories_collection, users_collection, expense_backup_collection
 
 ledger_bp = Blueprint('ledger', __name__)
