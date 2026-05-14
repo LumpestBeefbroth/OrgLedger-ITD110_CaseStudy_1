@@ -1,11 +1,3 @@
-"""
-Ledger Routes Blueprint
-Location: back-end/routes/ledger_routes.py
-
-Handles expense CRUD operations, JSON export, backup generation, and seed data.
-This blueprint manages the core financial transaction ledger.
-"""
-
 import sys
 import os
 from flask import Blueprint, request, jsonify, Response
@@ -14,7 +6,6 @@ from bson import ObjectId, json_util
 from datetime import datetime
 import subprocess
 
-# Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from db import expenses_collection, categories_collection, users_collection, expense_backup_collection
 

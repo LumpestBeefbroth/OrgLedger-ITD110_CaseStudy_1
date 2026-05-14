@@ -1,17 +1,3 @@
-"""
-Database Configuration Module
-Location: back-end/db.py
-
-This module initializes the MongoDB connection and exports collections
-to prevent circular imports and provide a single source of truth for
-database connections across the application.
-
-Connection Details:
-- Local: mongodb://localhost:27017
-- Vercel: Uses MONGO_URI environment variable (MongoDB Atlas mongodb+srv://)
-- Requires dnspython for mongodb+srv:// URIs
-"""
-
 import os
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError

@@ -1,15 +1,6 @@
-"""
-OrgLedger Application Entry Point
-Location: back-end/app.py
-
-Main Flask application factory. Initializes the Flask app, configures CORS,
-and registers all blueprints from the routes/ folder.
-"""
-
 import sys
 import os
 
-# Add current directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from flask import Flask, jsonify
@@ -30,7 +21,6 @@ app.register_blueprint(analytics_bp)
 
 @app.route('/health', methods=['GET'])
 def health():
-    """Health check endpoint"""
     try:
         from db import users_collection
         if users_collection is not None:

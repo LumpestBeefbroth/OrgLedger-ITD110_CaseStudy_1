@@ -2,8 +2,6 @@ let categoryChart = null;
 let trendChart = null;
 let analyticsData = null;
 
-
-
 if (document.getElementById("username")) {
   const user = localStorage.getItem("username");
   if (!user) window.location.href = "login.html";

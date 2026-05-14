@@ -1,17 +1,8 @@
-"""
-Analytics Routes Blueprint
-Location: back-end/routes/analytics_routes.py
-
-Handles complex analytics and reporting with MongoDB aggregation pipelines.
-Includes Virtual Wallet calculation, spending analysis, and cash flow trends.
-"""
-
 import sys
 import os
 from flask import Blueprint, request, jsonify
 from bson import ObjectId
 
-# Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from db import expenses_collection, categories_collection
 
@@ -136,7 +127,6 @@ def get_analytics(user_id):
         # Count total transactions
         total_count = sum(item["amount"] for item in category_totals)
         
-        # Transform category totals to match frontend expectations
         formatted_categories = []
         for item in category_totals:
             formatted_categories.append({
@@ -145,7 +135,6 @@ def get_analytics(user_id):
                 "count": item.get("count", 0)
             })
         
-        # Transform cash flow trend to match frontend expectations (expense_trend)
         expense_trend = []
         for month, flow_data in sorted(cash_flow_trend.items()):
             expense_trend.append({
@@ -169,5 +158,4 @@ def get_analytics(user_id):
 
         return jsonify(response)
     except Exception as e:
-        print(f"Error in get_analytics: {str(e)}")
         return jsonify({"error": str(e)}), 500

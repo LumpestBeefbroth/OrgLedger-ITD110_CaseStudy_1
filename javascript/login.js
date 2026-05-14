@@ -16,23 +16,19 @@ if (document.getElementById("loginForm")) {
       try {
         data = JSON.parse(text);
       } catch (err) {
-        console.error("[LOGIN] Server sent non-JSON response:", text);
         alert("Server Error: " + text.substring(0, 200));
         return;
       }
       
       if (!res.ok) {
-        console.error("[LOGIN] Server error:", data);
         alert(data.error || "Invalid username or password.");
         return;
       }
       
-      console.log("[LOGIN] Login successful");
       localStorage.setItem("user_id", data.user_id);
       localStorage.setItem("username", document.getElementById("loginUsername").value);
       window.location.href = "dashboard.html";
     } catch (error) {
-      console.error("[LOGIN] Fetch error:", error);
       alert("Network error. Please check your connection and try again.");
     }
   });
@@ -57,22 +53,18 @@ if (document.getElementById("registerForm")) {
       try {
         data = JSON.parse(text);
       } catch (err) {
-        console.error("[REGISTER] Server sent non-JSON response:", text);
         alert("Server Error: " + text.substring(0, 200));
         return;
       }
       
       if (!res.ok) {
-        console.error("[REGISTER] Server error:", data);
         alert(data.error || "Failed to register.");
         return;
       }
       
-      console.log("[REGISTER] Registration successful");
       alert("Registration successful!");
       window.location.href = "login.html";
     } catch (error) {
-      console.error("[REGISTER] Fetch error:", error);
       alert("Network error. Please check your connection and try again.");
     }
   });
